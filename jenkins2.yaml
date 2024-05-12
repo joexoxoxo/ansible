@@ -1,0 +1,35 @@
+---
+- name: Install Java and Jenkins on Amazon Linux
+  hosts: s1
+  become: yes
+  tasks:
+    - name: Download Jenkins repository file
+      get_url:
+        url: https://pkg.jenkins.io/redhat-stable/jenkins.repo
+        dest: /etc/yum.repos.d/jenkins.repo
+        mode: 0644
+        owner: root
+        group: root
+
+    - name: Add Jenkins Repository
+      yum_repository:
+        name: jenkins
+        description: Jenkins Official Repository
+        baseurl: http://pkg.jenkins.io/redhat-stable
+        gpgcheck: yes
+        gpgkey: https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+        enabled: yes
+
+    - name: Install Java and Jenkins
+      yum:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - java-11-amazon-corretto-devel
+        - jenkins
+
+    - name: Start Jenkins service
+      service:
+        name: jenkins
+        state: started
+        enabled: yes
