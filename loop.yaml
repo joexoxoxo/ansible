@@ -1,0 +1,14 @@
+---
+- name: looping installation
+  hosts: all
+  become: yes
+
+  tasks:
+  - name: installing multiple apps 
+    yum:
+      name: "{{ item }}"
+      state: present
+    loop:
+      - php
+      - unzip
+      - http_present  
