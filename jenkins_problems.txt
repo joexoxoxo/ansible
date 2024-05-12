@@ -11,3 +11,27 @@ sudo update-alternatives --config java
 
 verify java version
 java -version
+
+-----------------------------------------------------------------------------
+**could not find the port configuration file**
+
+if not found anywhere,
+then login to jenkins using 8080(default)
+finish the setup
+
+now the file appears in
+/var/lib/jenkins/jenkins.model.JenkinsLocationConfiguration.xml
+
+now the port number can be edited
+
+------------------------------------------------------------------------------------
+**how to find the port configuration file**
+use
+rpm -ql jenkins
+to find location
+
+/usr/lib/systemd/system/jenkins.service
+
+Environment="JENKINS_PORT=8080"
+
+just edit the above to change port (write playbook accordingly)
