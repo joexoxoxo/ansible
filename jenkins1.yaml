@@ -1,0 +1,25 @@
+---
+- name: Install Jenkins with Java 11
+  hosts: s1
+  become: yes
+
+  tasks:
+    - name: Add Jenkins Repository
+      yum_repository:
+        name: jenkins
+        description: Jenkins Official Repository
+        baseurl: http://pkg.jenkins.io/redhat-stable
+        gpgkey: https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+        state: present
+
+    - name: Install Java 11 and Jenkins
+      yum:
+        name:
+          - java-11-amazon-corretto-devel
+          - jenkins
+        state: present
+
+    - name: Start Jenkins Service
+      service:
+        name: jenkins
+        state: started
