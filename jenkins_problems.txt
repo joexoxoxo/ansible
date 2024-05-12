@@ -1,0 +1,13 @@
+ 
+**jenkins not starting**
+for jenkins use the right version of supported java
+(it will not work otherwise)
+
+for ec2 linux use
+sudo yum install java-11-amazon-corretto-devel
+
+for the right version
+sudo update-alternatives --config java
+
+verify java version
+java -version
